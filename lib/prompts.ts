@@ -1,4 +1,5 @@
-import { Framework, FRAMEWORKS } from './frameworks';
+import { FRAMEWORKS } from './frameworks';
+import { Framework } from './types';
 
 // AIプロンプトを生成
 export const generatePrompt = (frameworkId: string, businessDescription: string): string => {
