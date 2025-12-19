@@ -13,7 +13,7 @@ export const exportAsImage = async (
   const layoutHeights: Record<string, number> = {
     threeC: 500, grid3: 500, grid4: 500, grid2x2: 550, grid6: 600,
     ansoff: 550, bcg: 550, sevenS: 700, kpiTree: 600, okr: 600,
-    pdca: 650, a3: 750, unitEcon: 650, breakeven: 650, valueChain: 700,
+    pdca: 650, a3: 750, unitEcon: 650, breakeven: 650, valueChain: 450,
     fiveForces: 600, bmc: 700, lean: 750
   };
   
@@ -159,17 +159,21 @@ export const exportAsImage = async (
     drawLabel(lW + 50 + colW, startY - 10, colW, isA ? '新製品' : '低シェア');
     fields.forEach((f, i) => drawBlock(lW + 50 + (i % 2) * colW, startY + Math.floor(i / 2) * rowH, colW, rowH, f[1], f[0], get(f[0])));
   } else if (L === 'valueChain') {
-    const sH = 80, mH = 140, mW = 250, sW = 1250;
-    drawBlock(50, startY, sW, sH, '全般管理', 'Firm Infrastructure', get('infrastructure'));
-    drawBlock(50, startY + sH, sW, sH, '人事・労務管理', 'HRM', get('hrm'));
-    drawBlock(50, startY + sH * 2, sW, sH, '技術開発', 'Technology', get('technology'));
-    drawBlock(50, startY + sH * 3, sW, sH, '調達活動', 'Procurement', get('procurement'));
-    const mY = startY + sH * 4 + 20;
+    const sW = 310, sH = 100, mW = 250, mH = 140;
+    ctx.fillStyle = '#888';
+    ctx.font = '11px "Noto Sans JP", sans-serif';
+    ctx.fillText('支援活動', 50, startY - 5);
+    drawBlock(50, startY, sW, sH, '全般管理', 'Infrastructure', get('infrastructure'));
+    drawBlock(50 + sW + 10, startY, sW, sH, '人事・労務', 'HRM', get('hrm'));
+    drawBlock(50 + (sW + 10) * 2, startY, sW, sH, '技術開発', 'Technology', get('technology'));
+    drawBlock(50 + (sW + 10) * 3, startY, sW, sH, '調達活動', 'Procurement', get('procurement'));
+    const mY = startY + sH + 30;
+    ctx.fillText('主活動', 50, mY - 5);
     drawBlock(50, mY, mW, mH, '購買物流', 'Inbound', get('inboundLogistics'));
-    drawBlock(50 + mW, mY, mW, mH, '製造', 'Operations', get('operations'));
-    drawBlock(50 + mW * 2, mY, mW, mH, '出荷物流', 'Outbound', get('outboundLogistics'));
-    drawBlock(50 + mW * 3, mY, mW, mH, 'マーケ・販売', 'Marketing', get('marketingSales'));
-    drawBlock(50 + mW * 4, mY, mW, mH, 'サービス', 'Service', get('service'));
+    drawBlock(50 + mW + 10, mY, mW, mH, '製造', 'Operations', get('operations'));
+    drawBlock(50 + (mW + 10) * 2, mY, mW, mH, '出荷物流', 'Outbound', get('outboundLogistics'));
+    drawBlock(50 + (mW + 10) * 3, mY, mW, mH, 'マーケ・販売', 'Marketing', get('marketingSales'));
+    drawBlock(50 + (mW + 10) * 4, mY, mW, mH, 'サービス', 'Service', get('service'));
   } else if (L === 'sevenS') {
     const bW = 280, bH = 150;
     drawBlock(50, startY, bW, bH, '戦略', 'Strategy', get('strategy'));
